@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the project...
+      - cp index.html output/
+      - cp styles.css output/
+      - cp script.js output/
+artifacts:
+  files:
+    - output/*
