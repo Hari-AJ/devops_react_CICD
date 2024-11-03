@@ -3,14 +3,14 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14
+      nodejs: latest
   build:
     commands:
-      - echo Build started on `date`
-      - echo Building the project...
-      - cp index.html output/
-      - cp styles.css output/
-      - cp script.js output/
+      - echo "Building project"
+      - # Run any build commands here (if necessary)
+      - mkdir dist
+      - cp -r * dist/
 artifacts:
   files:
-    - output/*
+    - '**/*'
+  base-directory: dist
