@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: latest
+  build:
+    commands:
+      - echo "Building project"
+      - # Run any build commands here (if necessary)
+      - mkdir dist
+      - cp -r * dist/
+artifacts:
+  files:
+    - '**/*'
+  base-directory: dist

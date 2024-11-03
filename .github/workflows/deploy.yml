@@ -1,0 +1,28 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main  # Change to your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Copy files to EC2
+        uses: appleboy/scp-action@v0.1.1
+        with:
+          host: ${{ secrets.EC2_HOST }}  # Your EC2 instance's public IP
+          username: ec2-user  # or your appropriate username
+          key: ${{ secrets.EC2_SSH_KEY }}  # Your private SSH key
+          port: 22
+          source: "path/to/your/local/files/*"  # Adjust to your local files
+          target: "/path/to/your/remote/directory"  # Adjust to your remote directory
+
+      - name: Restart Apache
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_SSH_KEY }} ec2-user@${{ secrets.EC2_HOST }} "sudo systemctl restart httpd"
